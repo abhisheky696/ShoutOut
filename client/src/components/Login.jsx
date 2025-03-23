@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getProfile, getUser } from "../redux/userSlice";
 import logo from "../assets/logo.png";
-const Login = ({ setIsAuth }) => {
+const Login = () => {
     const [name, setName] = useState("");
     const [username, setUserName] = useState("");
     const [email, setEmail] = useState("");
@@ -16,21 +16,21 @@ const Login = ({ setIsAuth }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (isLogin) {
+            if(isLogin) {
                 //console.log(email,password);
                 let response = await axios.post(
                     "http://localhost:8000/api/v1/user/login",
                     { email, password },
                     {withCredentials:true}
                 );
-                //console.log("logged in user data",response.data.message);
+                // console.log("logged in user data",response.data.message);
                 dispatch(getUser(response?.data?.user));
                 if (response?.data?.success) {
-                    toast.success(response.data.message);
+                    toast.success(response?.data?.message);
                     navigate('/');
                 }
                 else {
-                    toast.error("Some error occurred while logging in");
+                    toast.error("response?.data?.message");
                 }
             } else {
                 let response = await axios.post(
@@ -45,12 +45,12 @@ const Login = ({ setIsAuth }) => {
                     setIsLogin(true)
                     return toast.success("User signed up successfully");
                 } else {
-                    return toast.error("Some error occurred while signing up");
+                    return toast.error(response?.data?.message);
                 }
             }
         } catch (error) {
-            toast.error("An error occurred while processing your request");
-            console.log("Error:", error);
+            toast.error(error?.response?.data?.message);
+            console.log("Error:", error.response.data.message);
         }
     };
     return (
@@ -63,7 +63,7 @@ const Login = ({ setIsAuth }) => {
                 />
             </div>
             <div className="w-full md:w-1/2 bg-white rounded-lg p-6 md:p-10">
-                <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 ">
+                <h2 className="text-2xl md:text-5xl font-bold text-center mb-6 ">
                     Happening Now
                 </h2>
                 <div className="max-w-sm mx-auto">
