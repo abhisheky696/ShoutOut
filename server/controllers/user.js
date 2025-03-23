@@ -89,8 +89,8 @@ export const logout = (req, res) => {
 
 export const bookmarks = async (req, res) => {
     try {
-        const tweetId = req.params.id;
-        const userId = req.body.id;
+        const tweetId = req.body.id;
+        const userId = req.params.id;
         let user = await User.findById(userId);
         let tweet = await Tweet.findById(tweetId);
         if (!user) {
@@ -105,7 +105,6 @@ export const bookmarks = async (req, res) => {
                 message: "Tweet does not exist with this ID",
             });
         }
-
         if (user.bookmarks.includes(tweetId)) {
             await User.findByIdAndUpdate(userId, {
                 $pull: { bookmarks: tweetId },

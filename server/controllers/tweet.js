@@ -199,7 +199,6 @@ export const allFollowingTweets = async (req, res) => {
                 message: "User does not exist",
             });
         }
-        //const userTweets = await Tweet.find({ author: userId }).populate("author", "name username");
         let followingTweets = [];
         if (user.following && user.following.length > 0) {
             followingTweets = await Tweet.find({ author: { $in: user.following } }).populate("author", "name username");

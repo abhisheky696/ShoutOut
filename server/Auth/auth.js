@@ -1,23 +1,22 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+
 dotenv.config();
+
 export const isAuthenticated = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.send({
-                success: true,
-                message: "user is not authenticated",
+            return res.status(401).json({
+                success: false,
+                message: "User is not authenticated",
             });
         }
-        const authuser = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = authuser.userId;
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        req.user = decoded.userId;
         next();
     } catch (error) {
-        console.log("some error occured while authenticating the user.");
-        res.send({
-            success: false,
-            message: "some error occured while authenticating the user",
-        });
+        console.error("Error during authentication:", error.message);
+        return res.redirect("/login");
     }
 };
