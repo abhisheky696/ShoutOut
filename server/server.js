@@ -32,6 +32,12 @@ app.use("/", tweetRouter);
 // app.get('*',(req,res) => {
 //   res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
 // })
+app.get("/",(req,res) => {
+  res.send({
+    success:true,
+    message:"root route is working well"
+  })
+})
 app.listen(port, (req, res) => {
     console.log(`server is listening at port ${port}`);
 });
