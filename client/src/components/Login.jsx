@@ -50,21 +50,21 @@ const Login = () => {
             }
         } catch (error) {
             toast.error(error?.response?.data?.message);
-            console.log("Error:", error.response.data.message);
+            console.log("Error:", error.response?.data?.message);
         }
     };
     return (
         <div className="h-screen flex flex-col md:flex-row items-center justify-center  p-6">
             <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
                 <img
-                    className="lg:w-80 lg::w-96"
+                    className="lg:w-80 w-60 lg::w-96"
                     src={logo}
                     alt="twitter_logo"
                 />
             </div>
             <div className="w-full md:w-1/2 bg-white rounded-lg p-6 md:p-10">
-                <h2 className="text-2xl md:text-5xl font-bold text-center mb-6 ">
-                    Happening Now
+                <h2 className="text-2xl lg:text-4xl font-bold text-center mb-6 ">
+                Shoutout loud so the world listen
                 </h2>
                 <div className="max-w-sm mx-auto">
                     <h2 className="text-2xl font-semibold text-center mb-4">
