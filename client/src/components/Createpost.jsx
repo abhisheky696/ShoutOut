@@ -31,7 +31,7 @@ const Createpost = () => {
                 console.log("some error occured while posting a tweet",error.message);
             }
         } else {
-            return toast.error("Please write some before posting ")
+            return toast.error("Please write something before posting ")
         }
     };
     //console.log("data received in the create section", user);
