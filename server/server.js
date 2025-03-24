@@ -8,10 +8,10 @@ import cookieParser from "cookie-parser"
 import cors from 'cors'
 const app = express();
 const port = process.env.PORT
-import path from "path"
+// import path from "path"
 connectTODb();
 
-const _dirname=path.resolve();
+// const _dirname=path.resolve();
 app.use(cookieParser());
 app.use(
     cors({
@@ -28,10 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", userRouter);
 app.use("/", tweetRouter);
 
-app.use(express.static(path.join(_dirname,"/client/dist")))
-app.get('*',(req,res) => {
-  res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
-})
+// app.use(express.static(path.join(_dirname,"/client/dist")))
+// app.get('*',(req,res) => {
+//   res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
+// })
 app.listen(port, (req, res) => {
     console.log(`server is listening at port ${port}`);
 });
