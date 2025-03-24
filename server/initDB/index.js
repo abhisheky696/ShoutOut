@@ -3,7 +3,6 @@ import express from 'express'
 import dotenv from 'dotenv'
 dotenv.config();
 let atlas_url=process.env.ATLAS_URL;
-console.log(atlas_url)
 const connectTODb = async (req,res) => {
     try {
         await mongoose.connect(atlas_url);
