@@ -135,7 +135,7 @@ const LeftSidebar = () => {
                 onClick={() => setOpen(!open)}
             >
                 <div className="py-2">
-                    <Avatar name="Abhishek" size="40" round="40px" />
+                    <Avatar name={user?.name} size="40" round="40px" />
                 </div>
                 <div className="flex-col hidden sm:block">
                     <div>{user?.name}</div>
