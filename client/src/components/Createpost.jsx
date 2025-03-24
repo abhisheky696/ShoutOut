@@ -11,23 +11,27 @@ const Createpost = () => {
     //console.log(refresh)
     const [content, setContent] = useState("");
     const postTweet = async () => {
-        try {
-            await axios.post(
-                `http://localhost:8000/api/v1/tweet/create`,
-                {
-                    content,
-                },
-                {
-                    withCredentials: true,
-                }
-            );
-           // console.log("tweet posted successfully");
-            setContent("");
-            dispatch(doRefresh());
-            toast.success("Tweet posted successfully")
-            //console.log(refresh)
-        } catch (error) {
-            console.log("some error occured while posting a tweet",error.message);
+        if(content!="") {
+            try {
+                await axios.post(
+                    `http://localhost:8000/api/v1/tweet/create`,
+                    {
+                        content,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                );
+               // console.log("tweet posted successfully");
+                setContent("");
+                dispatch(doRefresh());
+                toast.success("Tweet posted successfully")
+                //console.log(refresh)
+            } catch (error) {
+                console.log("some error occured while posting a tweet",error.message);
+            }
+        } else {
+            return toast.error("Please write some before posting ")
         }
     };
     //console.log("data received in the create section", user);
