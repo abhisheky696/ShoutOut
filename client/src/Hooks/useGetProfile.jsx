@@ -2,15 +2,16 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux"
 import { getProfile } from "../redux/userSlice";
-
+import BASE_URL from "../utils/constant";
 const useGetProfile = (id) => {
     const dispatch = useDispatch();
     const refreshUser=useSelector((state)=>state.user.refresh);
     useEffect(() => {
         const fetchUser = async () => {
             try {
+                
                 const response = await axios.get(
-                    `http://localhost:8000/api/v1/user/profile/${id}`,
+                    `${BASE_URL}/api/v1/user/profile/${id}`,
                     {
                         withCredentials: true,
                     }

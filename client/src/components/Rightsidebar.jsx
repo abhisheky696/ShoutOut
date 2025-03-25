@@ -8,6 +8,7 @@ import { toast } from "react-toastify"
 import axios from "axios"
 import { doRefreshUser } from "../redux/userSlice"
 import useGetProfile from "../Hooks/usegetProfile"
+import BASE_URL from "../utils/constant"
 const Rightsidebar = () => {
     const dispatch = useDispatch();
     const user=useSelector((state)=>state.user.user);
@@ -21,7 +22,7 @@ const Rightsidebar = () => {
     const handleFollowUnfollow = async (id) => {
         if(profile?.following?.includes(id)) {
             let res = await axios.post(
-                `http://localhost:8000/api/v1/user/unfollow/${userId}`,
+                `${BASE_URL}/api/v1/user/unfollow/${userId}`,
                 {
                     id,
                 },
@@ -35,7 +36,7 @@ const Rightsidebar = () => {
             toast.success(res?.data?.message);
         } else {
             let res = await axios.post(
-                `http://localhost:8000/api/v1/user/follow/${userId}`,
+                `${BASE_URL}/api/v1/user/follow/${userId}`,
                 {
                     id,
                 },

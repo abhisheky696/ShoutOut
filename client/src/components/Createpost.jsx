@@ -5,16 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { doRefresh } from "../redux/tweetSlice";
 import { toast } from "react-toastify";
+import BASE_URL from "../utils/constant";
 const Createpost = () => {
     const user = useSelector((state) => state.user.user);
     const dispatch=useDispatch();
-    //console.log(refresh)
     const [content, setContent] = useState("");
     const postTweet = async () => {
         if(content!="") {
             try {
                 await axios.post(
-                    `http://localhost:8000/api/v1/tweet/create`,
+                    `${BASE_URL}/api/v1/tweet/create`,
                     {
                         content,
                     },
@@ -28,7 +28,7 @@ const Createpost = () => {
                 toast.success("Tweet posted successfully")
                 //console.log(refresh)
             } catch (error) {
-                console.log("some error occured while posting a tweet",error.message);
+                console.log("some error occured while posting a tweet",error);
             }
         } else {
             return toast.error("Please write something before posting ")

@@ -7,6 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { doRefresh } from "../redux/tweetSlice";
+import BASE_URL from "../utils/constant";
 const Tweetcard = ({ tweet }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -18,7 +19,7 @@ const Tweetcard = ({ tweet }) => {
     const handleLikeDislike = async (id) => {
         try {
             let response = await axios.post(
-                `http://localhost:8000/api/v1/tweet/like/${userId}`,
+                `${BASE_URL}/api/v1/tweet/like/${userId}`,
                 {
                     id,
                 },
@@ -36,7 +37,7 @@ const Tweetcard = ({ tweet }) => {
     const handleBookmark = async (id) => {
         try {
             let response = await axios.patch(
-                `http://localhost:8000/api/v1/user/bookmark/${userId}`,
+                `${BASE_URL}/api/v1/user/bookmark/${userId}`,
                 {
                     id,
                 },

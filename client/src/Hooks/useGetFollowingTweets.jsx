@@ -3,16 +3,17 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getFollowingTweets } from "../redux/tweetSlice";
 import { useSelector } from "react-redux";
+import BASE_URL from "../utils/constant";
 const useGetFollowingTweets = (id) => {
     const refresh=useSelector((state)=>state.tweet.refresh);
-
+    
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             try {
                // console.log(id);
                 const response = await axios.get(
-                    `http://localhost:8000/api/v1/tweet/allfollowingtweets/${id}`,
+                    `${BASE_URL}/api/v1/tweet/allfollowingtweets/${id}`,
                     {
                         withCredentials: true,
                     }

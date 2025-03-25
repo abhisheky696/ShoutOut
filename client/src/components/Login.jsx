@@ -4,7 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { getProfile, getUser } from "../redux/userSlice";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.png"
+import BASE_URL from "../utils/constant"
 const Login = () => {
     const [name, setName] = useState("");
     const [username, setUserName] = useState("");
@@ -19,7 +20,7 @@ const Login = () => {
             if(isLogin) {
                 //console.log(email,password);
                 let response = await axios.post(
-                    "http://localhost:8000/api/v1/user/login",
+                    `${BASE_URL}/api/v1/user/login`,
                     { email, password },
                     {withCredentials:true}
                 );
@@ -30,11 +31,11 @@ const Login = () => {
                     navigate('/');
                 }
                 else {
-                    toast.error("response?.data?.message");
+                    toast.error(response?.data?.message);
                 }
             } else {
                 let response = await axios.post(
-                    "http://localhost:8000/api/v1/user/signup",
+                    `${BASE_URL}/api/v1/user/signup`,
                     { name, username, email, password }
                 );
                 if (response?.data?.message === "User already exist") {
@@ -50,7 +51,7 @@ const Login = () => {
             }
         } catch (error) {
             toast.error(error?.response?.data?.message);
-            console.log("Error:", error.response?.data?.message);
+            console.log("Error:", error?.response?.data?.message);
         }
     };
     return (

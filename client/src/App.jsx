@@ -20,6 +20,7 @@ const Layout = ({ children }) => {
 const ProtectedRoute = ({ children }) => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector((state) => state.user.user);
+    // console.log(isAuthenticated)
     useEffect(() => {
         if (!isAuthenticated) {
             navigate("/login");

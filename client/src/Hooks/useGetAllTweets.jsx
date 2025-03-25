@@ -2,6 +2,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllTweets } from "../redux/tweetSlice";
+import BASE_URL from "../utils/constant";
 const useGetAllTweets = (id) => {
     const dispatch = useDispatch();
     const refresh=useSelector((state)=>state.tweet.refresh);
@@ -9,7 +10,7 @@ const useGetAllTweets = (id) => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/v1/tweet/alltweets/${id}`,
+                    `${BASE_URL}/api/v1/tweet/alltweets/${id}`,
                     {
                         withCredentials: true,
                     }
