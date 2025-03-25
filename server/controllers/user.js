@@ -63,7 +63,10 @@ export const login = async (req, res) => {
         const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
             expiresIn: "1d",
         });
-        res.cookie("token", token, { maxAge: 86400000, httpOnly: true });
+        res.cookie("token", token, {
+            maxAge: 86400000,
+            httpOnly: true,
+        });
         return res.status(200).json({
             message: `Welcome back ${user.name}`,
             user,
@@ -155,8 +158,11 @@ export const getProfile = async (req, res) => {
             user,
         });
     } catch (error) {
-        console.log("some error occured while fetching the profile data",error);
-        res.send({
+        console.log(
+            "some error occured while fetching the profile data",
+            error
+        );
+        return res.send({
             success: false,
             message: "some error occured while fetching profile data",
         });
@@ -183,7 +189,7 @@ export const getAllUsers = async (req, res) => {
         }
         res.send({
             success: true,
-            data:users,
+            data: users,
         });
     } catch (error) {
         console.log("some error occured while fetching the users");
