@@ -3,7 +3,7 @@ import Avatar from "react-avatar";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import useGetProfile from "../Hooks/usegetProfile";
+import useGetProfile from "../Hooks/usegetProfile.jsx";
 
 const Profile = () => {
     const user = useSelector((state) => state.user.user);

@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import userReducer from "./userSlice";
-import tweetReducer from "./tweetSlice";
+import userReducer from "./userSlice.jsx";
+import tweetReducer from "./tweetSlice.jsx";
 const rootReducer = combineReducers({
     user: userReducer,
     tweet: tweetReducer,

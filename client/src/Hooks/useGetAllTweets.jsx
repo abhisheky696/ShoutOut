@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllTweets } from "../redux/tweetSlice";
-import BASE_URL from "../utils/constant";
+import { getAllTweets } from "../redux/tweetSlice.jsx";
+import BASE_URL from "../utils/constant.jsx";
 const useGetAllTweets = (id) => {
     const dispatch = useDispatch();
     const refresh=useSelector((state)=>state.tweet.refresh);

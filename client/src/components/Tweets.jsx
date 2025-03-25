@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import Tweetcard from "./Tweetcard";
+import Tweetcard from "./Tweetcard.jsx";
 import { useSelector } from "react-redux";
-import useGetAllTweets from "../Hooks/useGetAllTweets";
+import useGetAllTweets from "../Hooks/useGetAllTweets.jsx";
 const Tweets = () => {
     const user = useSelector((state) => state.user.user);
     //console.log("data received in the tweet section", user);

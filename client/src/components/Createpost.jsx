@@ -3,7 +3,7 @@ import Avatar from "react-avatar";
 import { Fullscreen, Image } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { doRefresh } from "../redux/tweetSlice";
+import { doRefresh } from "../redux/tweetSlice.jsx";
 import { toast } from "react-toastify";
 import BASE_URL from "../utils/constant";
 const Createpost = () => {

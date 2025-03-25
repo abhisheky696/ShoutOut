@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch,useSelector } from "react-redux"
-import { getProfile } from "../redux/userSlice";
-import BASE_URL from "../utils/constant";
+import { getProfile } from "../redux/userSlice.jsx";
+import BASE_URL from "../utils/constant.jsx";
 const useGetProfile = (id) => {
     const dispatch = useDispatch();
     const refreshUser=useSelector((state)=>state.user.refresh);

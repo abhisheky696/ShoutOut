@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { doRefreshUser, getOtherUsers } from "../redux/userSlice";
+import { doRefreshUser, getOtherUsers } from "../redux/userSlice.jsx";
 import axios from "axios";
 import { useEffect } from "react";
-import BASE_URL from "../utils/constant";
+import BASE_URL from "../utils/constant.jsx";
 const useGetUsers = (id) => {
     const dispatch=useDispatch();
     const refreshUser=useSelector((state)=>state.user.refresh);

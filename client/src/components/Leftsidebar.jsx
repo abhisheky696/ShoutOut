@@ -9,7 +9,7 @@ import { CgProfile } from "react-icons/cg";
 import Avatar from "react-avatar";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser, logOutUser } from "../redux/userSlice";
+import { getUser, logOutUser } from "../redux/userSlice.jsx";
 import { toast } from "react-toastify";
 import axios from "axios";
 const Modal = ({ onClose }) => {

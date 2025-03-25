@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getFollowingTweets } from "../redux/tweetSlice";
+import { getFollowingTweets } from "../redux/tweetSlice.jsx";
 import { useSelector } from "react-redux";
-import BASE_URL from "../utils/constant";
+import BASE_URL from "../utils/constant.jsx";
 const useGetFollowingTweets = (id) => {
     const refresh=useSelector((state)=>state.tweet.refresh);
     

@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { doRefresh } from "../redux/tweetSlice";
-import BASE_URL from "../utils/constant";
+import { doRefresh } from "../redux/tweetSlice.jsx";
+import BASE_URL from "../utils/constant.jsx";
 const Tweetcard = ({ tweet }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);

@@ -2,13 +2,13 @@ import React, { useEffect } from "react"
 import { Search } from "lucide-react"
 import Avatar from "react-avatar"
 import { useDispatch, useSelector } from "react-redux"
-import useGetUsers from "../Hooks/useGetUsers"
+import useGetUsers from "../Hooks/useGetUsers.jsx"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import axios from "axios"
-import { doRefreshUser } from "../redux/userSlice"
-import useGetProfile from "../Hooks/usegetProfile"
-import BASE_URL from "../utils/constant"
+import { doRefreshUser } from "../redux/userSlice.jsx"
+import useGetProfile from "../Hooks/usegetProfile.jsx"
+import BASE_URL from "../utils/constant.jsx"
 const Rightsidebar = () => {
     const dispatch = useDispatch();
     const user=useSelector((state)=>state.user.user);

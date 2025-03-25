@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import Createpost from "./Createpost";
-import Header from "./Header";
-import Tweets from "./Tweets";
-import FollowingTweets from "./FollowingTweets";
+import Createpost from "./Createpost.jsx";
+import Header from "./Header.jsx";
+import Tweets from "./Tweets.jsx";
+import FollowingTweets from "./FollowingTweets.jsx";
 const Feed = () => {
     const [followingTweets,setFollowingTweets]=useState(false);
     return (

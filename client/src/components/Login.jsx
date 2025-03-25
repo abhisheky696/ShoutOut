@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { getProfile, getUser } from "../redux/userSlice";
+import { getProfile, getUser } from "../redux/userSlice.jsx";
 import logo from "../assets/logo.png"
-import BASE_URL from "../utils/constant"
+import BASE_URL from "../utils/constant.jsx"
 const Login = () => {
     const [name, setName] = useState("");
     const [username, setUserName] = useState("");

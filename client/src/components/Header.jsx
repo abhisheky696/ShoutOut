@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { doRefresh } from '../redux/tweetSlice';
+import { doRefresh } from '../redux/tweetSlice.jsx';
 
 const Header = ({followingTweets}) => {
   //console.log("data received at the header section",followingTweets)
