@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
 import axios from "axios"
 import { doRefreshUser } from "../redux/userSlice.jsx"
-import useGetProfile from "../Hooks/usegetProfile.jsx"
+import useGetProfile from "../Hooks/useGetProfile.jsx"
 import BASE_URL from "../utils/constant.jsx"
 const Rightsidebar = () => {
     const dispatch = useDispatch();
