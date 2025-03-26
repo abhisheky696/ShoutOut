@@ -66,8 +66,8 @@ export const login = async (req, res) => {
         res.cookie("token", token, {
             maxAge: 86400000,
             httpOnly: true,
-            secure:true,
-            sameSite:"None"
+            secure:false,
+            //sameSite:"None"
         });
         return res.status(200).json({
             message: `Welcome back ${user.name}`,
@@ -322,3 +322,34 @@ export const unfollow = async (req, res) => {
         });
     }
 };
+
+export const getTweetsByUser = async (req,res) => {
+    try {
+        const userId=req.query.id;
+        // console.log(userId)
+        if(!userId) {
+            return res.send({
+                success:false,
+                message:"user does not exist"
+            })
+        }
+        // console.log(userId)
+        const tweets=await Tweet.find({'author':userId}).populate("author","name username")
+        if(!tweets.length) {
+            return res.send({
+                success:false,
+                message:"No post exists for this user"
+            })
+        }
+        return res.send({
+            success:true,
+            tweets,
+        })
+    } catch (error) {
+        console.log(error)
+        res.send({
+            success:false,
+            message:error.message,
+        })
+    }
+}
