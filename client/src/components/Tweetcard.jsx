@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar";
 import { FolderCheck, MessageCircle } from "lucide-react";
 import { Heart, Bookmark } from "lucide-react";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { doRefresh } from "../redux/tweetSlice.jsx";
 import BASE_URL from "../utils/constant.jsx";
+import { doRefreshUser } from "../redux/userSlice.jsx";
 const Tweetcard = ({ tweet }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -16,6 +17,7 @@ const Tweetcard = ({ tweet }) => {
     const [bookmarked, setBookmarked] = useState(
         user?.bookmarks?.includes(tweet?._id)
     );
+    
     const handleLikeDislike = async (id) => {
         try {
             let response = await axios.post(
@@ -29,6 +31,7 @@ const Tweetcard = ({ tweet }) => {
             );
             toast.success(response?.data?.message);
             dispatch(doRefresh());
+            dispatch(doRefreshUser());
         } catch (error) {
             console.log("some error cocured while liking a tweet", error);
             toast.error("some error occured");

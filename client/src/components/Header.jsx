@@ -1,20 +1,41 @@
-import React from 'react'
-import { useDispatch } from 'react-redux';
-import { doRefresh } from '../redux/tweetSlice.jsx';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { doRefresh } from "../redux/tweetSlice.jsx";
 
-const Header = ({followingTweets}) => {
-  //console.log("data received at the header section",followingTweets)
-  const dispatch=useDispatch();
-  return (
-    <div className='flex h-12 font-semibold border-b sticky'>
-        <button onClick={()=>followingTweets(false)} className='w-[50%] focus:bg-gray-300 flex justify-center items-center border-r cursor-pointer'>
-            For You
-        </button>
-        <button onClick={()=>{followingTweets(true);dispatch(doRefresh())}} className='w-[50%] focus:bg-gray-300 flex justify-center items-center cursor-pointer'>
-            Followings
-        </button>
-    </div>
-  )
-}
+const Header = ({ followingTweets }) => {
+    const dispatch = useDispatch();
+    const [activeTab, setActiveTab] = useState("forYou");
+
+    const handleToggle = (tab) => {
+        setActiveTab(tab);
+        if (tab === "followings") {
+            followingTweets(true);
+            dispatch(doRefresh());
+        } else {
+            followingTweets(false);
+        }
+    };
+
+    return (
+        <div className="flex h-12 font-semibold border-b sticky">
+            <button
+                onClick={() => handleToggle("forYou")}
+                className={`w-[50%] flex justify-center items-center border-r cursor-pointer ${
+                    activeTab === "forYou" ? "bg-gray-300" : ""
+                }`}
+            >
+                For You
+            </button>
+            <button
+                onClick={() => handleToggle("followings")}
+                className={`w-[50%] flex justify-center items-center cursor-pointer ${
+                    activeTab === "followings" ? "bg-gray-300" : ""
+                }`}
+            >
+                Followings
+            </button>
+        </div>
+    );
+};
 
 export default Header;

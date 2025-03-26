@@ -9,7 +9,6 @@ const useGetProfile = (id) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                
                 const response = await axios.get(
                     `${BASE_URL}/api/v1/user/profile/${id}`,
                     {

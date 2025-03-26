@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "react-avatar";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useGetProfile from "../Hooks/useGetProfile.jsx";
+import useGetAllTweets from "../Hooks/useGetAllTweets.jsx";
+import useGetTweetsByUser from "../Hooks/useGetTweetsByUser.jsx";
+import Tweetcard from "./Tweetcard.jsx";
 
 const Profile = () => {
+    const [activeTab, setActiveTab] = useState("Tweets");
     const user = useSelector((state) => state.user.user);
+    console.log("user",user.bookmarks)
     const loggedInUserId = user?._id;
-    // console.log("data received in the profile section", loggedInUserId);
     const { id } = useParams();
-    let followButtonText="follow";
-    if(user.following.includes(id)) {
-        followButtonText="following"
+    useGetTweetsByUser(id);
+    const tweets = useSelector((state) => state.user.tweets);
+    console.log(tweets);
+    let followButtonText = "Follow";
+    if (user?.following?.includes(id)) {
+        followButtonText = "Following";
     }
     useGetProfile(id);
     const profile = useSelector((state) => state.user.profile);
+
     if (profile === null) {
         return (
             <div className="w-[50%] bg-white text-center text-3xl">
@@ -38,7 +46,7 @@ const Profile = () => {
                 </Link>
                 <div>
                     <h1 className="text-2xl font-bold">{profile?.name}</h1>
-                    <h1>0 posts</h1>
+                    <h1>{tweets?.length || 0} Tweets</h1>
                 </div>
             </div>
             <div className="h-52 bg-gray-300 px-3"></div>
@@ -50,10 +58,10 @@ const Profile = () => {
                     size={150}
                 />
                 <button className="px-3 py-1 text-white bg-black h-10 mr-10 rounded-full mt-5 cursor-pointer font-medium">
-                   {loggedInUserId==id? "Edit Profile":followButtonText}
+                    {loggedInUserId === id ? "Edit Profile" : followButtonText}
                 </button>
             </div>
-            <div className="flex flex-col  justify-start absolute top-92 px-3">
+            <div className="flex flex-col justify-start absolute top-92 px-3">
                 <h2 className="text-xl font-bold mt-2">{profile?.name}</h2>
                 <p className="text-gray-500">@{profile?.username}</p>
                 <p className="text-gray-500 mt-2">📅 Joined February 2025</p>
@@ -65,6 +73,60 @@ const Profile = () => {
                         <strong>{profile?.followers?.length}</strong> Followers
                     </span>
                 </div>
+            </div>
+            <div className="flex justify-around mt-24 border-b">
+                <button
+                    className={`py-2 w-1/2 ${
+                        activeTab === "Tweets"
+                            ? "border-b-2 border-black font-semibold"
+                            : "text-gray-500"
+                    }`}
+                    onClick={() => setActiveTab("Tweets")}
+                >
+                    Tweets
+                </button>
+                <button
+                    className={`py-2 w-1/2 ${
+                        activeTab === "bookmarks"
+                            ? "border-b-2 border-black font-semibold"
+                            : "text-gray-500"
+                    }`}
+                    onClick={() => setActiveTab("bookmarks")}
+                >
+                    Bookmarks
+                </button>
+            </div>
+            <div className="px-3">
+                {activeTab === "Tweets" ? (
+                    <div>
+                        {tweets?.length > 0 ? (
+                            tweets.map((tweet) => (
+                                <Tweetcard key={tweet?._id} tweet={tweet}/>
+                            ))
+                        ) : (
+                            <p className="text-gray-500 mt-4">
+                                No Tweets available
+                            </p>
+                        )}
+                    </div>
+                ) : (
+                    <div>
+                        {user?.bookmarks?.length > 0 ? (
+                            user.bookmarks.map((bookmark) => (
+                                <div
+                                    key={bookmark._id}
+                                    className="border-b py-3"
+                                >
+                                    <p>{bookmark.content}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-gray-500 mt-4">
+                                No bookmarks available
+                            </p>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );

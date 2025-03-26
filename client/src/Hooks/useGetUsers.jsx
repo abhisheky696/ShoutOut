@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import BASE_URL from "../utils/constant.jsx";
 const useGetUsers = (id) => {
     const dispatch=useDispatch();
-    const refreshUser=useSelector((state)=>state.user.refresh);
+    const refreshTweet=useSelector(state=>state.tweet.refresh)
+    const refreshUser=useSelector(state=>state.user.refresh);
     useEffect(()=> {
         const fetchUsers = async () => {
             try {
@@ -22,6 +23,6 @@ const useGetUsers = (id) => {
             }
         }
         fetchUsers();
-    },[id]);
+    },[id,refreshTweet,refreshUser]);
 }
 export default useGetUsers

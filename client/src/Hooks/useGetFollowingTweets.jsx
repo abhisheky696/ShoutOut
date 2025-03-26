@@ -5,7 +5,8 @@ import { getFollowingTweets } from "../redux/tweetSlice.jsx";
 import { useSelector } from "react-redux";
 import BASE_URL from "../utils/constant.jsx";
 const useGetFollowingTweets = (id) => {
-    const refresh=useSelector((state)=>state.tweet.refresh);
+    const refreshTweet=useSelector((state)=>state.tweet.refresh);
+    const refreshUser=useSelector((state)=>state.user.refresh);
     
     const dispatch = useDispatch();
     useEffect(() => {
@@ -30,7 +31,7 @@ const useGetFollowingTweets = (id) => {
             }
         };
         fetchData();
-    }, [id,refresh]);
+    }, [id,refreshTweet,refreshUser]);
 };
 
 export default useGetFollowingTweets;
