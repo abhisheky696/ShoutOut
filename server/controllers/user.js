@@ -66,8 +66,8 @@ export const login = async (req, res) => {
         res.cookie("token", token, {
             maxAge: 86400000,
             httpOnly: true,
-            secure:false,
-            //sameSite:"None"
+            secure:true,
+            sameSite:"None"
         });
         return res.status(200).json({
             message: `Welcome back ${user.name}`,
