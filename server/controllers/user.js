@@ -353,3 +353,21 @@ export const getTweetsByUser = async (req,res) => {
         })
     }
 }
+
+
+export const getUsersBookmarkedTweet = async (req,res) => {
+    try {
+        const userId=req.body.id;
+        console.log(userId)
+        const user=User.findById({id:userId});
+        console.log(user)
+        return;
+        // not completed yet
+    } catch (error) {
+        console.log("some error occured while fetching bookmarked tweets")
+        res.send({
+            success:false,
+            message:error.message
+        })
+    }
+}
