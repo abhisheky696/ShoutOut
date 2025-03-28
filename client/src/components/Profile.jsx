@@ -11,12 +11,12 @@ import Tweetcard from "./Tweetcard.jsx";
 const Profile = () => {
     const [activeTab, setActiveTab] = useState("Tweets");
     const user = useSelector((state) => state.user.user);
-    console.log("user",user.bookmarks)
+    // console.log("user",user.bookmarks)
     const loggedInUserId = user?._id;
     const { id } = useParams();
     useGetTweetsByUser(id);
     const tweets = useSelector((state) => state.user.tweets);
-    console.log(tweets);
+    // console.log(tweets);
     let followButtonText = "Follow";
     if (user?.following?.includes(id)) {
         followButtonText = "Following";

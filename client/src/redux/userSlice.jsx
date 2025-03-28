@@ -8,6 +8,7 @@ const userSlice=createSlice({
         otherUsers:[],
         refresh:false,
         tweets:[],
+        bookmarks:[],
     },
     reducers:{
         getUser:(state,action) => {
@@ -29,9 +30,12 @@ const userSlice=createSlice({
         },
         getTweets:(state,action) => {
             state.tweets=action.payload;
+        },
+        getBookmarks:(state,action) => {
+            state.bookmarks=action.payload;
         }
     }
 })
 
-export const {getProfile,getOtherUsers,getUser,logOutUser,doRefreshUser,getTweets}=userSlice.actions;
+export const {getProfile,getOtherUsers,getUser,logOutUser,doRefreshUser,getTweets,getBookmarks}=userSlice.actions;
 export default userSlice.reducer;

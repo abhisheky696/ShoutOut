@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import "./index.css";
 import { useSelector } from "react-redux";
 import PageNotFound from "./components/PageNotFound";
+import Bookmarks from "./components/Bookmarks";
 const Layout = ({ children }) => {
     return (
         <div className="md:w-[80%] w-full flex  justify-between  mx-auto">
@@ -37,7 +38,7 @@ export const App = () => {
                 <Route path="/" element={<ProtectedRoute><Layout><Feed /></Layout></ProtectedRoute>} />
                 <Route path="/explore" element={<ProtectedRoute><Layout><PageNotFound /></Layout></ProtectedRoute>} />
                 <Route path="/notification" element={<ProtectedRoute><Layout><PageNotFound /></Layout></ProtectedRoute>} />
-                <Route path="/message" element={<ProtectedRoute><Layout><PageNotFound /></Layout></ProtectedRoute>} />
+                <Route path="/bookmarks" element={<ProtectedRoute><Layout><Bookmarks /></Layout></ProtectedRoute>} />
                 <Route path={'/profile/:id'} element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
             </Routes>
         </BrowserRouter>
