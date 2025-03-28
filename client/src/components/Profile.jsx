@@ -1,43 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "react-avatar";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import useGetProfile from "../Hooks/useGetProfile.jsx";
-import useGetAllTweets from "../Hooks/useGetAllTweets.jsx";
 import useGetTweetsByUser from "../Hooks/useGetTweetsByUser.jsx";
 import Tweetcard from "./Tweetcard.jsx";
 
 const Profile = () => {
-    const [activeTab, setActiveTab] = useState("Tweets");
     const user = useSelector((state) => state.user.user);
-    // console.log("user",user.bookmarks)
     const loggedInUserId = user?._id;
     const { id } = useParams();
+    
     useGetTweetsByUser(id);
+    useGetProfile(id);
+    
     const tweets = useSelector((state) => state.user.tweets);
-    // console.log(tweets);
+    const profile = useSelector((state) => state.user.profile);
+
     let followButtonText = "Follow";
     if (user?.following?.includes(id)) {
         followButtonText = "Following";
     }
-    useGetProfile(id);
-    const profile = useSelector((state) => state.user.profile);
 
     if (profile === null) {
-        return (
-            <div className="w-[50%] bg-white text-center text-3xl">
-                Loading...
-            </div>
-        );
+        return <div className="w-[50%] bg-white text-center text-3xl">Loading...</div>;
     }
     if (!profile) {
-        return (
-            <div className="w-[50%] bg-white text-center text-3xl">
-                No user found
-            </div>
-        );
+        return <div className="w-[50%] bg-white text-center text-3xl">No user found</div>;
     }
+
     return (
         <div className="w-[50%] bg-white m-0 border-l border-r">
             <div className="flex gap-7 my-1 py-1 items-center px-3">
@@ -74,58 +67,13 @@ const Profile = () => {
                     </span>
                 </div>
             </div>
-            <div className="flex justify-around mt-24 border-b">
-                <button
-                    className={`py-2 w-1/2 ${
-                        activeTab === "Tweets"
-                            ? "border-b-2 border-black font-semibold"
-                            : "text-gray-500"
-                    }`}
-                    onClick={() => setActiveTab("Tweets")}
-                >
-                    Tweets
-                </button>
-                <button
-                    className={`py-2 w-1/2 ${
-                        activeTab === "bookmarks"
-                            ? "border-b-2 border-black font-semibold"
-                            : "text-gray-500"
-                    }`}
-                    onClick={() => setActiveTab("bookmarks")}
-                >
-                    Bookmarks
-                </button>
-            </div>
-            <div className="px-3">
-                {activeTab === "Tweets" ? (
-                    <div>
-                        {tweets?.length > 0 ? (
-                            tweets.map((tweet) => (
-                                <Tweetcard key={tweet?._id} tweet={tweet}/>
-                            ))
-                        ) : (
-                            <p className="text-gray-500 mt-4">
-                                No Tweets available
-                            </p>
-                        )}
-                    </div>
+            <div className="px-3 mt-24">
+                <h2 className="text-2xl font-bold my-3 text-center">All Tweets</h2>
+                <hr/>
+                {tweets?.length > 0 ? (
+                    tweets.map((tweet) => <Tweetcard key={tweet?._id} tweet={tweet} />)
                 ) : (
-                    <div>
-                        {user?.bookmarks?.length > 0 ? (
-                            user.bookmarks.map((bookmark) => (
-                                <div
-                                    key={bookmark._id}
-                                    className="border-b py-3"
-                                >
-                                    <p>{bookmark.content}</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p className="text-gray-500 mt-4">
-                                No bookmarks available
-                            </p>
-                        )}
-                    </div>
+                    <p className="text-gray-500 mt-4">No Tweets available</p>
                 )}
             </div>
         </div>

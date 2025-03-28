@@ -79,7 +79,7 @@ const LeftSidebar = () => {
     const user = useSelector((state) => state.user.user);
     //console.log("user is defined in leftsidebar",user);
     return (
-        <div className=" lg:gap-y-3 lg:pr-12 w-[20%] mx-auto">
+        <div className="lg:gap-y-3 lg:pr-12 w-[20%] mx-auto hidden md:block">
             <Link to={"/"}>
                 <div>
                     <img className="cursor-pointer w-30 ml-4 my-3" src={logo} />
@@ -127,11 +127,8 @@ const LeftSidebar = () => {
                     </div>
                 </Link>
             </div>
-            <div className="rounded-full bg-black text-white px-3 py-2 text-center cursor-pointer my-5 text-xl">
-                Post
-            </div>
             <div
-                className="flex justify-center px-2 cursor-pointer hover:bg-gray-400 rounded-full p-2"
+                className="flex my-8 justify-center px-2 cursor-pointer hover:bg-gray-400 rounded-full p-2"
                 onClick={() => setOpen(!open)}
             >
                 <div className="py-2">

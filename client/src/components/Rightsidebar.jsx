@@ -50,8 +50,8 @@ const Rightsidebar = () => {
         }
     };
     return (
-        <div className="w-[30%] px-2 py-3 hidden md:block">
-            <div className="flex justify-center items-center  border-1 rounded-full px-3">
+        <div className="md:w-[30%] px-2 py-3 hidden sm:block">
+            <div className="flex justify-center items-center border-1 rounded-full px-3">
                 <Search />
                 <input
                     type="search"
