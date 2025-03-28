@@ -357,12 +357,16 @@ export const getTweetsByUser = async (req,res) => {
 
 export const getUsersBookmarkedTweet = async (req,res) => {
     try {
-        const userId=req.body.id;
+        const userId=req.params.id;
         console.log(userId)
-        const user=User.findById({id:userId});
-        console.log(user)
-        return;
-        // not completed yet
+        const user=await User.findById({_id:userId});
+        const bookmarks=user.bookmarks;
+        // console.log(bookmarks)
+        const allTweets=await Tweet.find({_id:{$in:bookmarks}}).populate("author", "name username");
+        return res.send({
+            success:true,
+            allTweets
+        })
     } catch (error) {
         console.log("some error occured while fetching bookmarked tweets")
         res.send({

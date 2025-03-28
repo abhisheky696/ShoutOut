@@ -12,7 +12,7 @@ router.get("/api/v1/user/allusers/:id",isAuthenticated,getAllUsers);
 router.post("/api/v1/user/follow/:id",isAuthenticated,follow);
 router.post("/api/v1/user/unfollow/:id",isAuthenticated,unfollow);
 router.get("/api/v1/user/posts",isAuthenticated,getTweetsByUser);
-router.get("/api/v1/user/bookmarktweets",isAuthenticated,getUsersBookmarkedTweet);
+router.get("/api/v1/user/bookmarktweets/:id",isAuthenticated,getUsersBookmarkedTweet);
 
 export default router;
 
