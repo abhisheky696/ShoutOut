@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { doRefresh } from "../redux/tweetSlice.jsx";
 import BASE_URL from "../utils/constant.jsx";
 import { doRefreshUser } from "../redux/userSlice.jsx";
+import Comments from "./Comments.jsx";
 const Tweetcard = ({ tweet }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -17,7 +18,14 @@ const Tweetcard = ({ tweet }) => {
     const [bookmarked, setBookmarked] = useState(
         user?.bookmarks?.includes(tweet?._id)
     );
-    
+    const [comments, setComments] = useState(false);
+    const handleComments = () => {
+        try {
+            setComments(!comments);
+        } catch (error) {
+            console.log("some error occured while working withi comments");
+        }
+    };
     const handleLikeDislike = async (id) => {
         try {
             let response = await axios.post(
@@ -77,68 +85,86 @@ const Tweetcard = ({ tweet }) => {
         };
     };
     return (
-        <div className="flex border-b m-3 whitespace-normal">
-            <div>
-                <Avatar name={tweet?.author?.name} size="40" round="40px" />
-            </div>
-            <div>
-                <div className="flex gap-2 mx-3">
-                    <span>{tweet?.author?.name}</span>
-                    <span className="cursor-pointer">
-                        @{tweet?.author?.username}
-                    </span>
-                    <span></span>
+        <div>
+            <div className="flex border-b border-gray-400 px-2 py-4  m-3 whitespace-normal hover:bg-gray-100 cursor-pointer">
+                <div>
+                    <Avatar
+                        name={tweet?.author?.name}
+                        size="40"
+                        round="40px"
+                        onClick={() => handleComments()}
+                    />
                 </div>
-                <div className="mx-2">{tweet?.content}</div>
-                <div className="flex justify-between px-5 py-2">
-                    <div className="flex cursor-pointer rounded-full shadow-2xl">
-                        <MessageCircle />
-                        {tweet?.comments.length}
+                <div>
+                    <div
+                        className="flex gap-2 mx-3"
+                        onClick={() => handleComments()}
+                    >
+                        <span>{tweet?.author?.name}</span>
+                        <span className="cursor-pointer">
+                            @{tweet?.author?.username}
+                        </span>
+                        <span></span>
                     </div>
-                    <button
-                        className="flex items-center space-x-1 cursor-pointer"
-                        onClick={() => {
-                            setIsLike(!isLike);
-                            handleLikeDislike(tweet?._id);
-                        }}
-                    >
-                        <motion.div
-                            whileTap={{ scale: 0.8 }}
-                            animate={{ scale: isLike ? [1, 1.3, 1] : 1 }}
-                            transition={{ duration: 0.6 }}
+                    <div className="mx-2" onClick={() => handleComments()}>
+                        {tweet?.content}
+                    </div>
+                    <div className="flex justify-between px-5 py-2">
+                        <div
+                            className="flex cursor-pointer rounded-full shadow-2xl"
+                            onClick={() => handleComments()}
                         >
-                            <Heart
-                                className={`transition ${
-                                    isLike
-                                        ? "fill-red-500 stroke-red-500"
-                                        : "stroke-gray-600"
-                                }`}
-                            />
-                        </motion.div>
-                        <span className="text-sm">{tweet?.likes?.length}</span>
-                    </button>
-                    <button
-                        className="flex items-center space-x-1 cursor-pointer"
-                        onClick={() => {
-                            setBookmarked(!bookmarked);
-                            handleBookmark(tweet?._id);
-                        }}
-                    >
-                        <motion.div
-                            whileTap={{ scale: 0.8 }}
-                            transition={{ duration: 0.6 }}
+                            <MessageCircle />
+                            {tweet?.comments.length}
+                        </div>
+                        <button
+                            className="flex items-center space-x-1 cursor-pointer"
+                            onClick={() => {
+                                setIsLike(!isLike);
+                                handleLikeDislike(tweet?._id);
+                            }}
                         >
-                            <Bookmark
-                                className={`transition ${
-                                    bookmarked
-                                        ? "fill-gray-300 stroke-gray-500"
-                                        : "stroke-gray-600"
-                                }`}
-                            />
-                        </motion.div>
-                    </button>
+                            <motion.div
+                                whileTap={{ scale: 0.8 }}
+                                animate={{ scale: isLike ? [1, 1.3, 1] : 1 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <Heart
+                                    className={`transition ${
+                                        isLike
+                                            ? "fill-red-500 stroke-red-500"
+                                            : "stroke-gray-600"
+                                    }`}
+                                />
+                            </motion.div>
+                            <span className="text-sm">
+                                {tweet?.likes?.length}
+                            </span>
+                        </button>
+                        <button
+                            className="flex items-center space-x-1 cursor-pointer"
+                            onClick={() => {
+                                setBookmarked(!bookmarked);
+                                handleBookmark(tweet?._id);
+                            }}
+                        >
+                            <motion.div
+                                whileTap={{ scale: 0.8 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <Bookmark
+                                    className={`transition ${
+                                        bookmarked
+                                            ? "fill-gray-300 stroke-gray-500"
+                                            : "stroke-gray-600"
+                                    }`}
+                                />
+                            </motion.div>
+                        </button>
+                    </div>
                 </div>
             </div>
+            {comments && <Comments />}
         </div>
     );
 };

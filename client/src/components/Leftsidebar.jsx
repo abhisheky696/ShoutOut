@@ -79,7 +79,7 @@ const LeftSidebar = () => {
     const user = useSelector((state) => state.user.user);
     //console.log("user is defined in leftsidebar",user);
     return (
-        <div className="lg:gap-y-3 lg:pr-12 w-[20%] mx-auto hidden md:block">
+        <div className="lg:gap-y-3 lg:pr-12 w-[20%] mx-auto hidden md:block sticky top-0">
             <Link to={"/"}>
                 <div>
                     <img className="cursor-pointer w-30 ml-4 my-3" src={logo} />

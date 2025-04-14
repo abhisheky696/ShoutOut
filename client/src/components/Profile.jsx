@@ -32,7 +32,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="w-[50%] bg-white m-0 border-l border-r">
+        <div className="w-[50%] h-[100vh] overflow-y-scroll overflow-x-hidden bg-white m-0 border-l border-r">
             <div className="flex gap-7 my-1 py-1 items-center px-3">
                 <Link to="/" className="cursor-pointer">
                     <ArrowLeft />
@@ -50,12 +50,12 @@ const Profile = () => {
                     name={profile?.name}
                     size={150}
                 />
-                <button className="px-3 py-1 text-white bg-black h-10 mr-10 rounded-full mt-5 cursor-pointer font-medium">
+                <button className="px-3 py-1 text-white bg-black h-10 mr-10 rounded-full cursor-pointer font-medium">
                     {loggedInUserId === id ? "Edit Profile" : followButtonText}
                 </button>
             </div>
-            <div className="flex flex-col justify-start absolute top-92 px-3">
-                <h2 className="text-xl font-bold mt-2">{profile?.name}</h2>
+            <div className="flex flex-col justify-start relative -top-12 px-3">
+                <h2 className="text-xl font-bold">{profile?.name}</h2>
                 <p className="text-gray-500">@{profile?.username}</p>
                 <p className="text-gray-500 mt-2">📅 Joined February 2025</p>
                 <div className="flex gap-4 mt-1 text-gray-700">
@@ -67,7 +67,7 @@ const Profile = () => {
                     </span>
                 </div>
             </div>
-            <div className="px-3 mt-24">
+            <div className="px-3">
                 <h2 className="text-2xl font-bold my-3 text-center">All Tweets</h2>
                 <hr/>
                 {tweets?.length > 0 ? (

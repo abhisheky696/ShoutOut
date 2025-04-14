@@ -6,7 +6,7 @@ import FollowingTweets from "./FollowingTweets.jsx";
 const Feed = () => {
     const [followingTweets,setFollowingTweets]=useState(false);
     return (
-        <div className="flex flex-col border-r border-l w-full md:w-[50%] md:mx-4">
+        <div className="flex flex-col border-r border-l overflow-y-scroll w-full md:w-[50%] md:mx-4">
             <Header followingTweets={setFollowingTweets}/>
             <div className="overflow-scroll-y max-h-screen ">
                 <Createpost />

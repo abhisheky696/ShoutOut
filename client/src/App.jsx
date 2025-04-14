@@ -11,7 +11,7 @@ import PageNotFound from "./components/PageNotFound";
 import Bookmarks from "./components/Bookmarks";
 const Layout = ({ children }) => {
     return (
-        <div className="md:w-[80%] w-full flex  justify-between  mx-auto">
+        <div className="md:w-[80%] h-[100vh] w-full flex  justify-between  mx-auto">
             <Leftsidebar />
             {children}
             <Rightsidebar />

@@ -17,10 +17,10 @@ const Header = ({ followingTweets }) => {
     };
 
     return (
-        <div className="flex h-12 font-semibold border-b sticky">
+        <div className="flex font-semibold border-b sticky">
             <button
                 onClick={() => handleToggle("forYou")}
-                className={`w-[50%] flex justify-center items-center border-r cursor-pointer ${
+                className={`w-[50%] flex justify-center items-center h-[45px] border-r cursor-pointer ${
                     activeTab === "forYou" ? "bg-gray-300" : ""
                 }`}
             >
