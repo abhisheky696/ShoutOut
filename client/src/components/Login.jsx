@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { getProfile, getUser } from "../redux/userSlice.jsx";
+import { getUser } from "../redux/userSlice.jsx";
 import logo from "../assets/logo.png";
 import BASE_URL from "../utils/constant.jsx";
 
@@ -14,6 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [isLogin, setIsLogin] = useState(true);
     const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const Login = () => {
         setLoading(true);
         try {
             if (isLogin) {
-                let response = await axios.post(
+                const response = await axios.post(
                     `${BASE_URL}/api/v1/user/login`,
                     { email, password },
                     { withCredentials: true }
@@ -30,30 +31,29 @@ const Login = () => {
                 dispatch(getUser(response?.data?.user));
                 if (response?.data?.success) {
                     toast.success(response?.data?.message);
-                    navigate("/");
+                    navigate('/');
                 } else {
                     toast.error(response?.data?.message);
                 }
             } else {
-                let response = await axios.post(
+                const response = await axios.post(
                     `${BASE_URL}/api/v1/user/signup`,
                     { name, username, email, password }
                 );
+
                 if (response?.data?.message === "User already exist") {
+                    toast.success("User already exists. Please log in.");
                     setIsLogin(true);
-                    toast.success("User already exists");
                 } else if (response?.data?.success) {
+                    toast.success("User signed up successfully. Please log in.");
                     setIsLogin(true);
-                    toast.success("User signed up successfully");
                 } else {
-                    toast.error(response?.data?.message);
+                    toast.error(response?.data?.message || "Signup failed");
                 }
             }
         } catch (error) {
-            toast.error(
-                error?.response?.data?.message || "Something went wrong"
-            );
-            console.log("Error:", error?.response?.data?.message);
+            toast.error(error?.response?.data?.message || "Something went wrong");
+            console.error("Error:", error?.response?.data?.message);
         } finally {
             setLoading(false);
         }
@@ -62,39 +62,40 @@ const Login = () => {
     return (
         <div className="h-screen flex flex-col md:flex-row items-center justify-center p-6">
             <div className="w-full md:w-1/2 flex justify-center mb-6 md:mb-0">
-                <img className="lg:w-80 w-60" src={logo} alt="twitter_logo" />
+                <img
+                    className="lg:w-80 w-60"
+                    src={logo}
+                    alt="twitter_logo"
+                />
             </div>
             <div className="w-full md:w-1/2 bg-white rounded-lg p-6 md:p-10">
                 <h2 className="text-2xl lg:text-4xl font-bold text-center mb-6">
-                    Shoutout loud so the world listens
+                    Shoutout loud so the world listen
                 </h2>
                 <div className="max-w-sm mx-auto">
                     <h2 className="text-2xl font-semibold text-center mb-4">
                         {isLogin ? "Login" : "Sign Up"}
                     </h2>
-                    <form
-                        className="flex flex-col gap-4"
-                        onSubmit={handleSubmit}
-                    >
+                    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                         {!isLogin && (
-                            <input
-                                type="text"
-                                placeholder="Name"
-                                className="border p-2 rounded"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                            />
-                        )}
-                        {!isLogin && (
-                            <input
-                                type="text"
-                                placeholder="Username"
-                                className="border p-2 rounded"
-                                value={username}
-                                onChange={(e) => setUserName(e.target.value)}
-                                required
-                            />
+                            <>
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    className="border p-2 rounded"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Username"
+                                    className="border p-2 rounded"
+                                    value={username}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    required
+                                />
+                            </>
                         )}
                         <input
                             type="email"
@@ -118,10 +119,12 @@ const Login = () => {
                             disabled={loading}
                         >
                             {loading
-                                ? "Please wait..."
+                                ? isLogin
+                                    ? "Logging in..."
+                                    : "Signing up..."
                                 : isLogin
-                                ? "Login"
-                                : "Sign Up"}
+                                    ? "Login"
+                                    : "Sign Up"}
                         </button>
                     </form>
                     <p className="text-center mt-4 text-gray-600">
